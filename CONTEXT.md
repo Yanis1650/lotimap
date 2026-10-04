@@ -1,6 +1,6 @@
 # Contexte du projet — lotimap
 
-> Document de reprise pour les prochaines conversations. État au 4 octobre 2026 : phases 0 à 6 validées. Charte Drekky Studio intégrée ; publication sur GitHub en cours. Le déploiement réel sur le VPS reste à faire.
+> Document de reprise pour les prochaines conversations. État au 4 octobre 2026 : phases 0 à 6 validées. Charte Drekky Studio intégrée et dépôt publié sur GitHub avec CI réussie ; phase 7 réalisée, en attente de validation. Le déploiement réel sur le VPS reste à faire.
 
 ## Intention
 
@@ -90,13 +90,13 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 - GitHub Actions contient trois tâches : Python 3.12 (tests, Ruff et formatage), web Node 22 (lint, types, compilation/test), puis construction et test du conteneur. Les actions sont fixées par leur commit, les permissions limitées à la lecture et aucun déploiement automatique n'est configuré.
 - Le test conteneur utilise le projet isolé `lotimap-check`, avec des identifiants factices ; il vérifie l'API, les 20 lots, le contexte, la persistance d'un prix/statut après redémarrage, le cookie `Secure` derrière un protocole HTTPS simulé, les pages `noindex` et `robots.txt`. Son volume jetable est supprimé après vérification.
 - Les README français/anglais finaux et une capture réelle de la carte sont fournis. Le guide de déploiement explique les paramètres Traefik et la sauvegarde SQLite.
-- Vérifications du **4 octobre 2026** après reprise : installation propre avec npm 12.2.0, lint, types, compilation et test web réussis ; 18 tests Python, Ruff/formatage et limite de 200 lignes réussis sous Linux. Image reconstruite avec npm 12, test conteneur réussi et workflow validé par actionlint. Le premier passage réel sur GitHub reste à confirmer après publication.
-- Deux avis de sécurité sans correctif publié (`braces` et `node-forge`) remontent 11 dépendances affectées dans l'audit. Ces modules sont absents des sorties serveur Nitro Windows et Linux vérifiées ; les deux README documentent leur portée et les liens de suivi. Recontrôler avant publication.
+- Vérifications du **4 octobre 2026** après reprise : installation propre avec npm 12.2.0, lint, types, compilation et test web réussis ; 18 tests Python, Ruff/formatage et limite de 200 lignes réussis sous Linux. Image reconstruite avec npm 12, test conteneur réussi et workflow validé par actionlint. Les trois tâches du premier passage réel sur GitHub ont également réussi.
+- Deux avis de sécurité sans correctif publié (`braces` et `node-forge`) remontent 11 dépendances affectées dans l'audit. Ces modules sont absents des sorties serveur Nitro Windows et Linux vérifiées ; les deux README documentent leur portée et les liens de suivi. Recontrôler avant déploiement.
 - Le contrôle d'application Windows bloque le chargement local de pyproj ; la vérification Python a été effectuée dans un conteneur Linux Python 3.12. Aucune protection Windows n'a été modifiée. Après un échec temporaire de Docker Desktop, une relance officielle a rétabli le moteur ; aucune suppression manuelle de son fichier temporaire n'a été exécutée.
 - L'aperçu `http://127.0.0.1:3333/` tourne dans Docker (projet `lotimap`, volume `lotimap_sales` conservé), administration désactivée. Le serveur Node temporaire a été arrêté et le projet de test `lotimap-check` avec son volume jetable a été supprimé.
 - L'utilisateur a validé **MIT** pour le code le 4 octobre 2026. `LICENSE` et `NOTICE.md` distinguent le code et les exemples synthétiques des données ouvertes, polices OFL et éléments de marque.
 - La charte v1 de septembre 2026 et les SVG ont été fournis le 4 octobre. L'intégration applique les couleurs exactes, Space Grotesk / IBM Plex Sans / IBM Plex Mono, arrondis de 3 px, contenu centré sur 1 152 px, symbole et mot côte à côte dans la navigation, variantes crème au pied de page et favicon original. Les six WOFF2 sont hébergés localement avec leurs licences ; les logos sont copiés sans modification. Les choix sont dans `docs/branding.md`.
-- Le dépôt cible fourni et autorisé par l'utilisateur est **https://github.com/Yanis1650/lotimap**, public et initialement vide, branche par défaut `main`. Le remote SSH `origin` est configuré ; les premières vérifications GitHub sont à confirmer après le premier push.
+- Le dépôt cible fourni et autorisé par l'utilisateur est **https://github.com/Yanis1650/lotimap**, public et initialement vide, branche par défaut `main`. Le remote SSH `origin` est configuré ; le commit initial `e73180c` a été publié le 4 octobre 2026, avec une adresse GitHub noreply. [Le premier passage CI](https://github.com/Yanis1650/lotimap/actions/runs/37219417210) a réussi pour Python, le web et le conteneur Docker.
 - Vérification de l'identité le **4 octobre 2026** : vues 390 × 844 et 1 280 × 900 sans débordement horizontal ; filtres combinés à 70 000 € / 900 m² donnant deux lots disponibles, fiche du lot 13 avec zonage Uh et bouton factice sans collecte. Le bandeau reste visible pendant le défilement ; l'admin non configurée affiche son état désactivé. Les captures sont dans `docs/images/`.
 
 ## Phases et règle de travail
@@ -108,7 +108,7 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 4. Vue admin — **validée**.
 5. Enrichissement open data — **validée**.
 6. Docker, CI, README final en français et en anglais — **validée**.
-7. Identité Drekky Studio et publication GitHub — **en cours, autorisée le 4 octobre 2026**.
+7. Identité Drekky Studio et publication GitHub — **réalisée le 4 octobre 2026, en attente de validation**.
 
 Arrêter le travail à la fin de chaque phase, résumer ce qui est fait et ce qui reste, proposer un message de commit et attendre la validation avant la suivante. Présenter les options avant de trancher un choix technique discutable.
 
@@ -116,4 +116,4 @@ Arrêter le travail à la fin de chaque phase, résumer ce qui est fait et ce qu
 
 1. **Déploiement** : domaine, réseau Traefik et méthode TLS à renseigner avant déploiement VPS, sans valeurs privées dans Git.
 2. **Emprise définitive** : adapter le plan et recalculer l'enrichissement quand la vraie zone sera choisie.
-3. **Publication** : confirmer le premier passage CI GitHub, puis préparer le post LinkedIn après validation de cette étape.
+3. **Communication** : préparer le post LinkedIn après validation de cette étape.

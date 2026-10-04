@@ -127,9 +127,9 @@ npm test
 
 The 18 Python tests cover conversion, damaged inputs, projections, mappings, aggregations and file length. The web integration test starts the compiled server with a temporary database and checks login, refused access, validation, editing, logout and stale enrichment. ESLint checks Vue, TypeScript and JavaScript.
 
-GitHub Actions runs these checks on pushes and pull requests, then builds and starts a test container. Its health check requests `/api/lots`, exercising the bundled data and SQLite. The container test checks persistence across restart, the HTTPS cookie, `noindex` and `robots.txt`. Enrichment tests use synthetic data without querying external services. A GitHub run remains to be confirmed after the repository is published.
+GitHub Actions runs these checks on pushes and pull requests, then builds and starts a test container. Its health check requests `/api/lots`, exercising the bundled data and SQLite. The container test checks persistence across restart, the HTTPS cookie, `noindex` and `robots.txt`. Enrichment tests use synthetic data without querying external services. All three jobs passed on the [first GitHub run, on 4 October 2026](https://github.com/Yanis1650/lotimap/actions/runs/37219417210).
 
-**Dependency status on 4 October 2026.** `npm audit` reports 11 affected dependencies from two advisories: [braces](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm) and [node-forge](https://github.com/advisories/GHSA-86w9-cpqp-85rv), with no patched version published. These modules are pulled in by Nuxt development/build tools and are absent from the inspected Nitro server output. The development server listens only on `127.0.0.1`. Review these advisories before publication and apply available fixes; audit results are not suppressed.
+**Dependency status on 4 October 2026.** `npm audit` reports 11 affected dependencies from two advisories: [braces](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm) and [node-forge](https://github.com/advisories/GHSA-86w9-cpqp-85rv), with no patched version published. These modules are pulled in by Nuxt development/build tools and are absent from the inspected Nitro server output. The development server listens only on `127.0.0.1`. Review these advisories before deployment and apply available fixes; audit results are not suppressed.
 
 ## Scope and limitations
 
