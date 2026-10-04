@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "generated_on": "2026-10-01",
+  "plan_sha256": "b60644e2c7d9949162dccf70de5d8b8e868b840cbe629dc98147befaca814625",
+  "commune": {
+    "code": "50025",
+    "name": "Avranches"
+  },
+  "plu": {
+    "lot-35": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-37": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-39": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-3B": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-3D": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-3F": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-41": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-43": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-45": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-47": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-49": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-4B": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-4D": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-4F": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-51": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-53": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-55": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-57": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-59": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    },
+    "lot-5B": {
+      "code": "Uh",
+      "description": "Zone urbaine à dominante habitat",
+      "coverage_pct": 100
+    }
+  },
+  "risks": {
+    "scope": "commune",
+    "families": [
+      "Engins de guerre",
+      "Inondation",
+      "Mouvement de terrain",
+      "Phénomène lié à l'atmosphère",
+      "Radon",
+      "Séisme",
+      "Transport de marchandises dangereuses"
+    ]
+  },
+  "dvf": {
+    "median_eur_m2": 80,
+    "sample_size": 12,
+    "years": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "sources": {
+    "gpu": {
+      "url": "https://apicarto.ign.fr/api/gpu/zone-urba",
+      "consulted_on": "2026-10-01",
+      "document_dates": [
+        "20200227"
+      ]
+    },
+    "georisques": {
+      "url": "https://georisques.gouv.fr/api/v1/gaspar/risques",
+      "consulted_on": "2026-10-01"
+    },
+    "dvf": {
+      "url": "https://files.data.gouv.fr/geo-dvf/latest/csv",
+      "consulted_on": "2026-10-01"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+services:
+  web:
+    environment:
+      LOTIMAP_PUBLIC_ORIGIN: https://${LOTIMAP_DOMAIN:?Renseigner LOTIMAP_DOMAIN}
+    networks:
+      - proxy
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: ${TRAEFIK_NETWORK:?Renseigner TRAEFIK_NETWORK}
+      traefik.http.routers.lotimap.rule: Host(`${LOTIMAP_DOMAIN}`)
+      traefik.http.routers.lotimap.entrypoints: ${TRAEFIK_ENTRYPOINT:-websecure}
+      traefik.http.routers.lotimap.tls: "true"
+      traefik.http.routers.lotimap.tls.certresolver: ${TRAEFIK_CERTRESOLVER:?Renseigner TRAEFIK_CERTRESOLVER}
+      traefik.http.routers.lotimap.service: lotimap
+      traefik.http.services.lotimap.loadbalancer.server.port: "3000"
+
+networks:
+  proxy:
+    external: true
+    name: ${TRAEFIK_NETWORK}

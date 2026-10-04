@@ -1,0 +1,60 @@
+{
+  "scenario": "Le Clos du Verger (fictif)",
+  "source_crs": "EPSG:3949",
+  "center_wgs84": {
+    "latitude": 48.684,
+    "longitude": -1.357
+  },
+  "center_cc49": {
+    "easting": 1379377.121,
+    "northing": 8174064.759
+  },
+  "layout": {
+    "center_lat": 48.684,
+    "center_lon": -1.357,
+    "rotation_deg": 0.0,
+    "frontage_m": 24.0,
+    "depth_m": 35.0,
+    "road_width_m": 10.0,
+    "margin_m": 5.0
+  },
+  "lot_count": 20,
+  "layers": {
+    "lots": "LOTS",
+    "road": "VOIRIE",
+    "boundary": "LIMITE_OPERATION",
+    "numbers": "NUMEROS_LOTS"
+  },
+  "fixtures": [
+    {
+      "file": "clos_du_verger_clean.dxf",
+      "variant": "clean",
+      "expected_issue": null
+    },
+    {
+      "file": "clos_du_verger_open_polyline.dxf",
+      "variant": "open_polyline",
+      "expected_issue": "lot 01: polyligne non fermée"
+    },
+    {
+      "file": "clos_du_verger_missing_number.dxf",
+      "variant": "missing_number",
+      "expected_issue": "lot 02: numéro absent"
+    },
+    {
+      "file": "clos_du_verger_duplicate_number.dxf",
+      "variant": "duplicate_number",
+      "expected_issue": "lot 04: numéro 03 répété"
+    },
+    {
+      "file": "clos_du_verger_orphan_text.dxf",
+      "variant": "orphan_text",
+      "expected_issue": "texte 99 hors de tous les lots"
+    },
+    {
+      "file": "clos_du_verger_invalid_geometry.dxf",
+      "variant": "invalid_geometry",
+      "expected_issue": "lot 05: polygone auto-intersecté"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+# Noms de calques exacts, sans distinction entre majuscules et minuscules.
+lots:
+  - LOTS
+numbers:
+  - NUMEROS_LOTS
+roads:
+  - VOIRIE
+boundary:
+  - LIMITE_OPERATION

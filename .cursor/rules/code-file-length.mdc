@@ -1,0 +1,12 @@
+---
+description: Limiter la taille des fichiers de code du projet lotimap
+alwaysApply: true
+---
+
+# Taille des fichiers de code
+
+- Chaque fichier de code écrit à la main doit contenir au plus **200 lignes physiques**, lignes vides et commentaires compris.
+- Cette limite s'applique notamment aux fichiers Python, TypeScript, JavaScript, Vue, aux scripts et aux tests.
+- Avant de terminer une modification, compter les lignes des fichiers de code créés ou modifiés et découper tout fichier qui dépasse 200 lignes par responsabilité cohérente.
+- Ne pas raccourcir artificiellement les noms, supprimer des contrôles utiles ou concentrer plusieurs instructions sur une ligne pour respecter la limite.
+- Les documents, configurations, fichiers de verrouillage et données générées ne sont pas des fichiers de code pour cette règle.

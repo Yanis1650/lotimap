@@ -1,0 +1,60 @@
+:root {
+  --paper: #f7f2e6;
+  --paper-dim: #efe6d1;
+  --ink: #1c2523;
+  --muted: #4a5654;
+  --muted-2: #5f6a68;
+  --accent: #3c565d;
+  --accent-hover: #334a50;
+  --accent-light: #c6d5d7;
+  --terracotta: #bc6a4a;
+  --terracotta-text: #a0553f;
+  --line: #dcd3bd;
+  --line-dark: #33474d;
+  --muted-dark: #cfd9d9;
+  --alert: #9c3d24;
+  --alert-bg: #fff1eb;
+  --radius: 3px;
+  --shadow-raised: 0 10px 30px -12px rgb(28 37 35 / 22%);
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; }
+body { margin: 0; }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.025em; text-wrap: balance; }
+
+:focus-visible { outline: 3px solid var(--terracotta-text); outline-offset: 3px; }
+.site-shell { min-height: 100vh; }
+.demo-banner {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 42px; padding: 9px 20px;
+  background: var(--accent); color: var(--paper);
+  font: 400 11px/1.5 var(--font-mono); letter-spacing: 0.06em;
+  text-align: center; text-transform: uppercase;
+}
+.demo-dot { width: 7px; height: 7px; flex: none; background: var(--paper-dim); border-radius: 50%; }
+.eyebrow, .context-kicker, .admin-kicker, .admin-card-kicker, .footer-kicker {
+  margin: 0; font: 400 11px/1.5 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase;
+}
+.eyebrow, .context-kicker, .admin-kicker, .admin-card-kicker { color: var(--terracotta-text); }
+.eyebrow { display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ""; width: 26px; height: 2px; flex: none; background: var(--terracotta); }
+.section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 20px; }
+.section-heading h2 { margin: 0; font-size: 17px; line-height: 1.5; }
+.section-heading span { color: var(--muted-2); font: 400 11px/1.5 var(--font-mono); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}

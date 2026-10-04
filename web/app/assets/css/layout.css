@@ -1,0 +1,70 @@
+.page-container { max-width: 1152px; margin: 0 auto; padding: 32px 20px 0; }
+.hero { margin-bottom: 32px; }
+.hero h1 { margin: 16px 0; font-size: 36px; line-height: 1.07; }
+.hero h1 em { color: var(--terracotta); font-style: normal; }
+.hero-description { max-width: 36rem; margin: 0 0 16px; color: var(--muted); font-size: 16px; line-height: 1.625; }
+.hero-location { margin: 0; color: var(--muted-2); font-size: 14px; line-height: 1.5; }
+.hero-count { display: flex; align-items: center; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.hero-count strong { color: var(--accent); font: 600 42px/40px var(--font-display); letter-spacing: -0.025em; }
+.hero-count span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.explorer { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
+.explorer-sidebar { display: contents; }
+.filters, .lot-list { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+.filters { order: 1; padding: 20px; }
+.filter-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.filter-field { display: grid; gap: 8px; color: var(--muted); font-size: 14px; font-weight: 500; }
+.filter-field select {
+  width: 100%; min-height: 45px; padding: 0 10px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--paper-dim); color: var(--ink); font-size: 14px;
+}
+.legend { order: 2; display: flex; flex-wrap: wrap; gap: 10px 16px; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; color: var(--muted); font-size: 14px; }
+.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 1px solid #38564d22; }
+.legend i[data-status="available"] { background: #79bfa0; }
+.legend i[data-status="option"] { background: #e8c265; }
+.legend i[data-status="reserved"] { background: #e99166; }
+.legend i[data-status="sold"] { background: #a0aab0; }
+.map-section { order: 3; }
+.lot-list { order: 4; padding: 20px 12px 12px; }
+.lot-list .section-heading { padding: 0 8px; }
+.lot-list-items { scrollbar-color: var(--line) transparent; }
+.lot-row {
+  display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 8px;
+  border: 0; border-top: 1px solid var(--line); background: transparent;
+  color: inherit; text-align: left;
+}
+.lot-row:hover, .lot-row.is-selected { background: var(--paper-dim); }
+.lot-row-number {
+  display: grid; place-items: center; width: 32px; height: 36px; flex: none;
+  border: 1px solid var(--line); border-radius: var(--radius); color: var(--accent);
+  font: 400 14px var(--font-mono);
+}
+.lot-row-main { display: grid; gap: 3px; min-width: 0; }
+.lot-row-main strong { font-size: 14px; font-weight: 600; }
+.lot-row-main small { color: var(--muted-2); font-size: 12px; line-height: 1.5; }
+.lot-row-price { margin-left: auto; color: var(--accent); font: 600 14px var(--font-display); white-space: nowrap; }
+.empty-state { padding: 8px 10px 16px; color: var(--muted); font-size: 14px; }
+.page-message { min-height: 300px; padding: 56px 20px; border: 1px solid var(--line); border-radius: var(--radius); text-align: center; }
+.page-message button { margin-left: 8px; padding: 12px 20px; border: 0; border-radius: var(--radius); background: var(--accent); color: var(--paper); }
+
+@media (min-width: 640px) {
+  .page-container { padding: 40px 32px 0; }
+  .hero h1 { font-size: 48px; }
+  .hero-description { font-size: 18px; }
+  .filters { padding: 24px; }
+  .filter-fields { gap: 16px; }
+}
+@media (min-width: 900px) {
+  .hero { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 40px; }
+  .hero > div:first-child { max-width: 36rem; }
+  .hero-count { flex: none; margin: 0; padding: 0 0 4px; border: 0; }
+  .explorer { grid-template-columns: minmax(270px, 290px) minmax(0, 1fr); gap: 20px; }
+  .explorer-sidebar { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+  .filter-fields { grid-template-columns: 1fr; }
+  .lot-list-items { max-height: 350px; overflow: auto; }
+  .map-section { order: 0; }
+}
+@media (min-width: 1024px) {
+  .hero h1 { font-size: 54px; }
+}

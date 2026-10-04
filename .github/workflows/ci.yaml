@@ -1,0 +1,76 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: importer/uv.lock
+      - run: uv sync --project importer --locked --group dev
+      - run: uv run --project importer --locked python -m pytest -q importer/tests enrichment/tests
+      - run: uv --directory importer run --locked ruff check src tests ../samples ../enrichment
+      - run: uv --directory importer run --locked ruff format --check src tests ../samples ../enrichment
+
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npx --yes npm@12.2.0 ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+
+  container:
+    needs: [python, web]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      LOTIMAP_ADMIN_PASSWORD: lotimap-container-test-password
+      LOTIMAP_SESSION_SECRET: lotimap-container-test-secret-not-for-real-deployment
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+      - name: Build and start container
+        run: docker compose -p lotimap-check -f deploy/compose.yaml -f deploy/compose.local.yaml up --build -d --wait --wait-timeout 90
+      - name: Verify persistence, HTTPS cookie and indexing
+        run: node --test deploy/tests/container.test.mjs
+      - name: Container logs
+        if: failure()
+        run: docker compose -p lotimap-check -f deploy/compose.yaml logs --no-color
+      - name: Stop test container
+        if: always()
+        run: docker compose -p lotimap-check -f deploy/compose.yaml -f deploy/compose.local.yaml down --volumes

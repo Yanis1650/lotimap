@@ -1,0 +1,38 @@
+# Fichiers réels et configuration locale
+/data/private/
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Python et uv
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Nuxt, Node et sorties de build
+node_modules/
+.nuxt/
+.output/
+.data/
+dist/
+coverage/
+
+# Base SQLite locale
+*.sqlite
+*.sqlite3
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Éditeurs et système
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

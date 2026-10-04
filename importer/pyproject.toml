@@ -1,0 +1,29 @@
+[project]
+name = "lotimap-importer"
+version = "0.1.0"
+description = "Conversion contrôlée de plans DXF de géomètre en GeoJSON"
+license = "MIT"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "ezdxf>=1.4,<2",
+  "pyproj>=3.7,<4",
+  "pyyaml>=6,<7",
+  "shapely>=2,<3",
+  "typer>=0.16,<1",
+]
+
+[project.scripts]
+lotimap-import = "lotimap_importer.cli:app"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "ruff>=0.12,<1"]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lotimap_importer"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
