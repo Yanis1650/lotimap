@@ -2,11 +2,13 @@
 import { computed, ref, watch } from 'vue'
 import type { PlanCollection, LotFeature } from '#shared/lot'
 import { isLotFeature } from '#shared/lot'
+import type { MapMode } from '~/utils/landscape-layers'
 
 const { data, error, pending, refresh } = await useFetch<PlanCollection>('/api/lots')
 const budgetMax = ref(0)
 const surfaceMin = ref(0)
 const selectedId = ref<string | null>(null)
+const mapMode = ref<MapMode>('landscape')
 
 const allLots = computed(() => data.value?.features.filter(isLotFeature) ?? [])
 const filteredLots = computed(() => allLots.value.filter((lot) => {
@@ -59,15 +61,22 @@ watch(filteredLots, (lots) => {
         <LotList :lots="filteredLots" :selected-id="selectedId" @select="selectedId = $event" />
       </aside>
       <section class="map-section" aria-label="Carte interactive des lots">
-        <div class="map-toolbar"><span>Plan interactif</span><span>Orthophoto IGN</span></div>
+        <div class="map-toolbar">
+          <div class="map-mode-switch" role="group" aria-label="Fond du plan">
+            <button type="button" :aria-pressed="mapMode === 'landscape'" @click="mapMode = 'landscape'">Plan paysager</button>
+            <button type="button" :aria-pressed="mapMode === 'orthophoto'" @click="mapMode = 'orthophoto'">Orthophoto IGN</button>
+          </div>
+          <span>{{ mapMode === 'landscape' ? 'Vue 2D illustrative' : 'Emprise provisoire' }}</span>
+        </div>
         <ClientOnly>
-          <LotMap :collection="visiblePlan" :selected-id="selectedId" @select="selectedId = $event" />
+          <LotMap :collection="visiblePlan" :selected-id="selectedId" :mode="mapMode" @select="selectedId = $event" />
           <template #fallback><div class="map-loading">Chargement de la carte…</div></template>
         </ClientOnly>
-        <div class="map-footnote">Localisation et emprise fictives · Cliquez sur un lot pour voir sa fiche</div>
+        <div class="map-footnote">{{ mapMode === 'landscape' ? 'Maisons et plantations illustratives · Contours issus du plan fictif' : 'Localisation et emprise fictives' }} · Cliquez sur un lot pour voir sa fiche</div>
         <LotDetails v-if="selectedLot" :lot="selectedLot" @close="selectedId = null" />
       </section>
     </div>
+    <ProjectGallery />
     <OpenDataPanel v-if="data?.context" :context="data.context" />
   </main>
 </template>

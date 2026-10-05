@@ -1,6 +1,6 @@
 # Application lotimap
 
-La carte présente les 20 lots fictifs du Clos du Verger sur l'orthophoto IGN. Elle lit le GeoJSON généré par le convertisseur ; une base SQLite locale fournit les prix et statuts de démonstration.
+La carte présente les 20 lots fictifs du Clos du Verger sur un plan paysager 2D ou l'orthophoto IGN. Elle lit le GeoJSON généré par le convertisseur ; une base SQLite locale fournit les prix et statuts de démonstration.
 
 ## Lancer en local
 
@@ -26,7 +26,8 @@ Par défaut, l'application lit `../data/demo/geojson/clos_du_verger.geojson`, ch
 ## Fonctionnement
 
 - `/api/lots` associe les polygones du GeoJSON aux prix et statuts SQLite.
-- Le navigateur affiche l'orthophoto IGN par WMTS, les lots colorés et les numéros, puis permet de filtrer par budget et surface.
+- Le navigateur affiche par défaut un plan paysager illustratif ; un bouton bascule vers l'orthophoto IGN par WMTS. Les lots colorés, les numéros et les filtres budget/surface fonctionnent dans les deux modes.
+- Deux perspectives d'ambiance fictives générées par IA sont présentées sous la carte, sur une colonne sur téléphone et deux sur ordinateur. [La méthode et les prompts](../docs/visuals.md) sont documentés.
 - La fiche indique le numéro, la surface, le prix, le prix au m² et le zonage PLU issu du GPU, avec sa description lorsqu'une seule zone est retenue.
 - Sous la carte, le contexte territorial présente les sources datées, les familles de risques à l'échelle communale et la médiane DVF agrégée. La disposition passe d'une colonne sur téléphone à trois sur ordinateur.
 - Le bouton « Je suis intéressé » affiche un message local ; aucune donnée n'est envoyée ni collectée.

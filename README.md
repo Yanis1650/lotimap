@@ -8,7 +8,7 @@
 
 Du plan DAO à la carte web : **lotimap** transforme un DXF de géomètre en GeoJSON contrôlé, puis présente les lots dans une interface adaptée au téléphone et à l'ordinateur. Ce projet de portfolio met l'accent sur la qualité de conversion, la lisibilité du code et l'explication des limites, dans un budget cible d'environ 25 heures.
 
-![Carte interactive du Clos du Verger sur ordinateur](docs/images/lotimap-desktop.png)
+![Plan paysager interactif du Clos du Verger sur ordinateur](docs/images/lotimap-landscape-desktop.png)
 
 ## Le problème et la démonstration
 
@@ -17,9 +17,12 @@ Un plan de géomètre contient des calques, des polylignes et des textes ; il n'
 Le scénario est **« Le Clos du Verger »**, un lotissement entièrement fictif de 20 lots près d'Avranches (Manche). L'emprise provisoire est centrée sur 48.684° N, 1.357° O ; elle ne représente aucune opération réelle.
 
 - **Conversion** : Lambert 93 ou CC49, surface dans la projection source, GeoJSON WGS84 et rapport de validation.
-- **Carte publique** : orthophoto IGN, quatre statuts, filtres budget/surface, liste accessible et fiche par lot.
+- **Carte publique** : plan paysager 2D ou orthophoto IGN, quatre statuts, filtres budget/surface, liste accessible et fiche par lot.
+- **Perspectives** : deux illustrations d'ambiance réalistes, explicitement fictives et générées par IA.
 - **Administration** : modification des prix et statuts SQLite avec un mot de passe fourni par l'environnement.
 - **Enrichissement** : zonage GPU par lot, familles de risques communales et médiane DVF, calculés à l'avance.
+
+![Perspectives d'ambiance fictives générées par IA](docs/images/lotimap-gallery-desktop.png)
 
 ## Lancer la carte
 
@@ -107,6 +110,8 @@ sources ouvertes ──▶ enrichment/ ◀────────────�
 
 **Identité Drekky Studio.** La charte fournie est appliquée : crème, ardoise, touches terracotta, Space Grotesk, IBM Plex Sans et IBM Plex Mono. Logos SVG et polices sont hébergés avec le site. [Les choix visuels et droits des éléments](docs/branding.md) sont documentés.
 
+**Plan paysager et images.** Une couche illustrative place maisons et plantations dans les lots fictifs, sans modifier leurs contours ni leurs surfaces. Les perspectives ne représentent pas l'implantation exacte du plan. [La méthode, les limites et les prompts](docs/visuals.md) sont documentés.
+
 ## Contrôles et CI
 
 Depuis la racine :
@@ -126,6 +131,8 @@ npm test
 ```
 
 Les 18 tests Python couvrent la conversion, les fichiers défectueux, les projections, le mapping, les agrégations et la limite de taille. Le test d'intégration web démarre le serveur compilé avec une base temporaire : connexion, accès refusés, validation, édition, déconnexion et invalidation de l'enrichissement. ESLint contrôle Vue, TypeScript et JavaScript.
+
+Trois tests web supplémentaires vérifient que le paysage reste dans les lots sans modifier le plan, suit les filtres et ignore les formes non prises en charge.
 
 GitHub Actions exécute ces contrôles sur les push et pull requests, puis construit et démarre un conteneur de test. Sa vérification de santé appelle `/api/lots`, donc teste aussi les données embarquées et SQLite. Le test conteneur contrôle la persistance après redémarrage, le cookie HTTPS, `noindex` et `robots.txt`. Les tests d'enrichissement n'interrogent pas les services ouverts. Les trois tâches ont réussi lors du [premier passage GitHub, le 4 octobre 2026](https://github.com/Yanis1650/lotimap/actions/runs/37219417210).
 

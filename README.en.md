@@ -8,7 +8,7 @@
 
 From CAD to a web map: **lotimap** turns a surveyor's DXF into validated GeoJSON, then displays lots in an interface designed for mobile and desktop. This portfolio project focuses on conversion quality, readable code and explicit limitations, with a target budget of roughly 25 hours. The demo interface is in French.
 
-![Le Clos du Verger interactive map on desktop](docs/images/lotimap-desktop.png)
+![Le Clos du Verger interactive landscaped plan on desktop](docs/images/lotimap-landscape-desktop.png)
 
 ## Problem and demonstration
 
@@ -17,9 +17,12 @@ A surveyor's drawing contains layers, polylines and text, rather than ready-to-u
 **“Le Clos du Verger”** is a fictional subdivision with 20 lots near Avranches, France. Its provisional footprint is centred at 48.684° N, 1.357° W and represents no real development.
 
 - **Conversion:** Lambert 93 or CC49, areas in the source CRS, WGS84 GeoJSON and a validation report.
-- **Public map:** IGN orthophotos, four statuses, budget/area filters, an accessible list and lot details.
+- **Public map:** a 2D landscaped plan or IGN orthophotos, four statuses, budget/area filters, an accessible list and lot details.
+- **Perspectives:** two realistic atmosphere illustrations, explicitly fictional and AI-generated.
 - **Administration:** update fictional prices and statuses in SQLite using an environment-provided password.
 - **Enrichment:** GPU zoning per lot, municipal risk families and a DVF median, computed in advance.
+
+![Fictional AI-generated atmosphere perspectives](docs/images/lotimap-gallery-desktop.png)
 
 ## Run the map
 
@@ -107,6 +110,8 @@ open data ──▶ enrichment/ ◀───────────────
 
 **Drekky Studio identity.** The supplied guidelines are applied: cream, slate, terracotta accents, Space Grotesk, IBM Plex Sans and IBM Plex Mono. SVG logos and fonts are served locally. [Visual decisions and asset rights](docs/branding.md) are documented in French.
 
+**Landscaped plan and images.** An illustrative layer places houses and plants inside the fictional lots without changing their boundaries or areas. The perspectives do not represent the plan's exact layout. [The method, limitations and prompts](docs/visuals.md) are documented in French.
+
 ## Checks and CI
 
 From the repository root:
@@ -126,6 +131,8 @@ npm test
 ```
 
 The 18 Python tests cover conversion, damaged inputs, projections, mappings, aggregations and file length. The web integration test starts the compiled server with a temporary database and checks login, refused access, validation, editing, logout and stale enrichment. ESLint checks Vue, TypeScript and JavaScript.
+
+Three additional web tests check that landscaping stays inside the lots without mutating the plan, follows filters and skips unsupported shapes.
 
 GitHub Actions runs these checks on pushes and pull requests, then builds and starts a test container. Its health check requests `/api/lots`, exercising the bundled data and SQLite. The container test checks persistence across restart, the HTTPS cookie, `noindex` and `robots.txt`. Enrichment tests use synthetic data without querying external services. All three jobs passed on the [first GitHub run, on 4 October 2026](https://github.com/Yanis1650/lotimap/actions/runs/37219417210).
 

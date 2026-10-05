@@ -5,8 +5,11 @@ import * as maplibregl from 'maplibre-gl'
 import type { GeoJSONSource } from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import type { PlanCollection } from '#shared/lot'
+import { buildLandscape } from '~/utils/landscape'
+import { landscapeLayers, setMapMode } from '~/utils/landscape-layers'
+import type { MapMode } from '~/utils/landscape-layers'
 
-const props = defineProps<{ collection: PlanCollection; selectedId: string | null }>()
+const props = defineProps<{ collection: PlanCollection; selectedId: string | null; mode: MapMode }>()
 const emit = defineEmits<{ select: [id: string] }>()
 const container = ref<HTMLElement | null>(null)
 const mapError = ref(false)
@@ -46,10 +49,11 @@ watch(container, (element) => {
             attribution: '<a href="https://cartes.gouv.fr/" target="_blank" rel="noopener noreferrer">© IGN</a>',
           },
           plan: { type: 'geojson', data: props.collection as FeatureCollection },
+          landscape: { type: 'geojson', data: buildLandscape(props.collection) },
         },
         layers: [
-          { id: 'ground', type: 'background', paint: { 'background-color': '#dce5da' } },
-          { id: 'orthophoto', type: 'raster', source: 'ign' },
+          { id: 'ground', type: 'background', paint: { 'background-color': '#e7eddf' } },
+          { id: 'orthophoto', type: 'raster', source: 'ign', layout: { visibility: props.mode === 'orthophoto' ? 'visible' : 'none' } },
           {
             id: 'road', type: 'fill', source: 'plan',
             filter: ['==', ['get', 'kind'], 'road'],
@@ -82,6 +86,7 @@ watch(container, (element) => {
             filter: ['==', ['get', 'lot_id'], props.selectedId ?? ''],
             paint: { 'line-color': '#163d33', 'line-width': 5 },
           },
+          ...landscapeLayers(props.mode),
           {
             id: 'lot-numbers', type: 'symbol', source: 'plan',
             filter: ['==', ['get', 'kind'], 'lot'],
@@ -96,7 +101,10 @@ watch(container, (element) => {
     map.on('error', (event) => {
       if (event.error?.message?.includes('Worker failed')) mapError.value = true
     })
-    map.once('style.load', fitPlan)
+    map.once('style.load', () => {
+      fitPlan()
+      setMapMode(map!, props.mode)
+    })
     map.on('click', (event) => {
       const feature = map?.queryRenderedFeatures(event.point, { layers: ['lots-fill'] })[0]
       const id = feature?.properties?.lot_id
@@ -111,7 +119,9 @@ watch(container, (element) => {
 
 watch(() => props.collection, (collection) => {
   map?.getSource<GeoJSONSource>('plan')?.setData(collection as FeatureCollection)
+  map?.getSource<GeoJSONSource>('landscape')?.setData(buildLandscape(collection))
 })
+watch(() => props.mode, mode => { if (map) setMapMode(map, mode) })
 watch(() => props.selectedId, (id) => {
   if (map?.getLayer('selected-outline')) map.setFilter('selected-outline', ['==', ['get', 'lot_id'], id ?? ''])
 })
@@ -120,7 +130,7 @@ onUnmounted(() => map?.remove())
 
 <template>
   <div class="map-wrap">
-    <div ref="container" class="map-canvas" aria-label="Plan des lots sur orthophoto IGN" />
+    <div ref="container" class="map-canvas" :aria-label="mode === 'landscape' ? 'Plan paysager illustratif des lots' : 'Plan des lots sur orthophoto IGN'" />
     <p v-if="mapError" class="map-error" role="alert">La carte ne peut pas s'afficher sur cet appareil. La liste des lots reste disponible.</p>
   </div>
 </template>

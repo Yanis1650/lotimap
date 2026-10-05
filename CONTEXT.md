@@ -1,6 +1,6 @@
 # Contexte du projet — lotimap
 
-> Document de reprise pour les prochaines conversations. État au 4 octobre 2026 : phases 0 à 6 validées. Charte Drekky Studio intégrée et dépôt publié sur GitHub avec CI réussie ; phase 7 réalisée, en attente de validation. Le déploiement réel sur le VPS reste à faire.
+> Document de reprise pour les prochaines conversations. État au 5 octobre 2026 : phases 0 à 7 validées. Plan paysager 2D et galerie de perspectives fictives ajoutés ; phase 8 réalisée, en attente de validation. Le déploiement réel sur le VPS reste à faire.
 
 ## Intention
 
@@ -98,6 +98,9 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 - La charte v1 de septembre 2026 et les SVG ont été fournis le 4 octobre. L'intégration applique les couleurs exactes, Space Grotesk / IBM Plex Sans / IBM Plex Mono, arrondis de 3 px, contenu centré sur 1 152 px, symbole et mot côte à côte dans la navigation, variantes crème au pied de page et favicon original. Les six WOFF2 sont hébergés localement avec leurs licences ; les logos sont copiés sans modification. Les choix sont dans `docs/branding.md`.
 - Le dépôt cible fourni et autorisé par l'utilisateur est **https://github.com/Yanis1650/lotimap**, public et initialement vide, branche par défaut `main`. Le remote SSH `origin` est configuré ; le commit initial `e73180c` a été publié le 4 octobre 2026, avec une adresse GitHub noreply. [Le premier passage CI](https://github.com/Yanis1650/lotimap/actions/runs/37219417210) a réussi pour Python, le web et le conteneur Docker.
 - Vérification de l'identité le **4 octobre 2026** : vues 390 × 844 et 1 280 × 900 sans débordement horizontal ; filtres combinés à 70 000 € / 900 m² donnant deux lots disponibles, fiche du lot 13 avec zonage Uh et bouton factice sans collecte. Le bandeau reste visible pendant le défilement ; l'admin non configurée affiche son état désactivé. Les captures sont dans `docs/images/`.
+- L'utilisateur a autorisé le **5 octobre 2026** une étape visuelle : plan paysager 2D et deux perspectives d'ambiance réalistes. Une couche MapLibre place maisons, terrasses, accès, haies et arbres dans les quadrilatères convexes du plan fictif, avec façade orientée vers la voirie. Aucun contour, numéro, prix ou surface source n'est modifié ; l'empreinte du GeoJSON reste identique et l'enrichissement reste applicable. La bascule vers l'orthophoto conserve filtres et sélection. Le paysage ignore les lots avec trous ou non convexes et ne vérifie aucune règle de construction.
+- Les deux perspectives rue/jardin ont été créées avec Imagegen, encodées en WebP 1 536 px et 768 px, avec chargement différé. Elles restent des illustrations d'ambiance sans correspondance avec un lot ou une implantation exacte ; la mention « Illustration fictive · IA » est visible sur chaque image. La provenance et les prompts sont dans `docs/visuals.md`. La 3D interactive reste une option future.
+- Vérifications de la phase 8 : lint, types, compilation et quatre tests web réussis ; limite de 200 lignes vérifiée par pytest. Docker reconstruit et aperçu sain sur le port 3333, volume existant conservé. Plan et galerie contrôlés en 1 280 × 900 et 390 × 844, sans débordement horizontal, avec changement de fond, filtres et ouverture d'une fiche depuis le plan mobile. Les captures sont dans `docs/images/lotimap-landscape-*.png` et `docs/images/lotimap-gallery-*.png`.
 
 ## Phases et règle de travail
 
@@ -108,7 +111,8 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 4. Vue admin — **validée**.
 5. Enrichissement open data — **validée**.
 6. Docker, CI, README final en français et en anglais — **validée**.
-7. Identité Drekky Studio et publication GitHub — **réalisée le 4 octobre 2026, en attente de validation**.
+7. Identité Drekky Studio et publication GitHub — **validée**.
+8. Plan paysager 2D et perspectives d'ambiance — **réalisée le 5 octobre 2026, en attente de validation**.
 
 Arrêter le travail à la fin de chaque phase, résumer ce qui est fait et ce qui reste, proposer un message de commit et attendre la validation avant la suivante. Présenter les options avant de trancher un choix technique discutable.
 

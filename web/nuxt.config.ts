@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2026-09-30',
   modules: ['@nuxt/eslint'],
-  css: ['maplibre-gl/dist/maplibre-gl.css', '~/assets/css/fonts.css', '~/assets/css/base.css', '~/assets/css/brand.css', '~/assets/css/layout.css', '~/assets/css/map.css', '~/assets/css/admin.css', '~/assets/css/context.css'],
+  css: ['maplibre-gl/dist/maplibre-gl.css', '~/assets/css/fonts.css', '~/assets/css/base.css', '~/assets/css/brand.css', '~/assets/css/layout.css', '~/assets/css/map.css', '~/assets/css/admin.css', '~/assets/css/context.css', '~/assets/css/gallery.css'],
   app: {
     head: {
       title: 'Le Clos du Verger | Démonstration lotimap',
