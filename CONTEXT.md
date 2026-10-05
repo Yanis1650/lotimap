@@ -1,6 +1,6 @@
 # Contexte du projet — lotimap
 
-> Document de reprise pour les prochaines conversations. État au 5 octobre 2026 : phases 0 à 8 validées. Vue 3D légère ajoutée, liste repliable et retour automatique à la carte réalisés. Post LinkedIn préparé pour validation. Le déploiement réel sur le VPS reste à faire.
+> Document de reprise pour les prochaines conversations. État au 5 octobre 2026 : phases 0 à 8 validées. Vue 3D légère ajoutée, liste repliable et retour automatique à la carte réalisés. Post LinkedIn préparé pour validation. Démo publiée le même jour sur https://lotimap.drekky.fr, derrière le Traefik du VPS, administration désactivée.
 
 ## Intention
 
@@ -50,7 +50,7 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 
 ## Contraintes non négociables
 
-- Bandeau visible **« Démonstration — données fictives »**.
+- Bandeau visible **« Démonstration · données fictives »**.
 - `noindex` sur toutes les pages et `robots.txt` interdisant l'exploration.
 - Aucune donnée de propriétaire ni référence cadastrale affichée.
 - Attribution datée des sources IGN, Etalab/DVF, GPU et Géorisques, avec leurs licences vérifiées avant publication.
@@ -108,6 +108,7 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 - Le commit `8a170f8` de la phase 9 a été publié ; [ses trois tâches CI](https://github.com/Yanis1650/lotimap/actions/runs/37355619960) ont réussi.
 - Le 5 octobre, l'utilisateur demande une liste repliable et un retour direct à la carte lorsqu'un lot est choisi. La liste est fermée initialement sur téléphone et ordinateur ; son bouton « Afficher / Replier » expose `aria-expanded` et `aria-controls`, avec une cible de 44 px. La sélection referme la liste, attend la mise à jour du DOM, déplace le focus vers la région carte et la ramène sous le bandeau fixe. Le défilement respecte la préférence de réduction des animations. Les clics effectués directement sur la carte conservent leur comportement.
 - Vérifications de cet ajustement : lint, types, compilation, cinq tests web et limite de 200 lignes réussis ; conteneur reconstruit et sain, base existante préservée. Ouverture/repli et sélection au clavier, clic sur un lot filtré, dernier des 20 lots, filtres combinés et liste sans résultat contrôlés. Aucun débordement horizontal en 320, 390 et 1 280 px ; retour à environ 58 px du haut, sous le bandeau de 42 px. Captures dans `docs/images/lotimap-list-*.png`.
+- Le bandeau affiche « Démonstration · données fictives » depuis le 5 octobre 2026 : le tiret cadratin a été retiré à la demande de l'utilisateur.
 - `docs/linkedin.md` contient le post français préparé et les deux visuels proposés. Le texte privilégie la conversion DXF, la qualité documentée et le parcours mobile ; il indique la fiction et les perspectives IA. Il renvoie au dépôt public, sans annoncer une démonstration VPS encore absente. Aucune publication LinkedIn n'a été effectuée.
 
 ## Phases et règle de travail
@@ -128,6 +129,6 @@ Arrêter le travail à la fin de chaque phase, résumer ce qui est fait et ce qu
 
 ## Questions et points à confirmer
 
-1. **Déploiement** : domaine, réseau Traefik et méthode TLS à renseigner avant déploiement VPS, sans valeurs privées dans Git.
+1. **Déploiement** : réalisé le 5 octobre 2026 sur `lotimap.drekky.fr` (réseau `traefik-public`, résolveur `letsencrypt`, valeurs dans `deploy/.env` hors Git). Activer l'administration seulement avec un mot de passe fort.
 2. **Emprise définitive** : adapter le plan et recalculer l'enrichissement quand la vraie zone sera choisie.
 3. **Communication** : valider le texte et les visuels dans `docs/linkedin.md`, puis publier le post LinkedIn.

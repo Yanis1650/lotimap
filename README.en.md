@@ -4,7 +4,9 @@
 
 [Français](README.md)
 
-> **Demo — fictional data.** No property is offered for sale and no personal data is collected.
+> **Demo · fictional data.** No property is offered for sale and no personal data is collected.
+
+**Live demo: [lotimap.drekky.fr](https://lotimap.drekky.fr)** (interface in French)
 
 From CAD to a web map: **lotimap** turns a surveyor's DXF into validated GeoJSON, then displays lots in an interface designed for mobile and desktop. This portfolio project focuses on conversion quality, readable code and explicit limitations, with a target budget of roughly 25 hours. The demo interface is in French.
 
@@ -150,7 +152,7 @@ GitHub Actions runs these checks on pushes and pull requests, then builds and st
 - Risks are municipal, not located on individual lots. A PLU zoning code does not guarantee buildability.
 - DVF is an aggregate indicator with municipal-export and deduplication limitations. Commercial prices in the demo remain fictional.
 - Administration is deliberately minimal; login attempts are limited in memory for a single instance.
-- Domain and VPS settings must be supplied before public deployment.
+- The public demo runs as a single instance with administration disabled: fictional prices and statuses stay fixed.
 
 ## Sources, dates and licences
 

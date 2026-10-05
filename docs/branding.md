@@ -11,7 +11,7 @@ La charte graphique v1 de septembre 2026 et les SVG ont été fournis par le por
 - Navigation : symbole et mot côte à côte, avec « Studio » composé en texte dessous. Le lockup vertical est réservé aux grands formats.
 - Logos ardoise sur crème, crème sur ardoise, favicon fourni. Les SVG sont copiés sans modification.
 
-Les quatre couleurs de statut sont conservées comme informations cartographiques, accompagnées de libellés. Le bandeau **« Démonstration — données fictives »** conserve le texte demandé pour le projet. La carte et sa fiche restent prioritaires dans la disposition mobile.
+Les quatre couleurs de statut sont conservées comme informations cartographiques, accompagnées de libellés. Le bandeau **« Démonstration · données fictives »** conserve le texte demandé pour le projet. La carte et sa fiche restent prioritaires dans la disposition mobile.
 
 ## Polices hébergées avec le site
 

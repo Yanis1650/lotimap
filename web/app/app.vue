@@ -2,7 +2,7 @@
   <div class="site-shell">
     <div class="demo-banner" role="note">
       <span class="demo-dot" aria-hidden="true" />
-      Démonstration — données fictives
+      Démonstration · données fictives
     </div>
     <header class="site-header">
       <StudioBrand />

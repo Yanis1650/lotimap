@@ -4,7 +4,9 @@
 
 [English](README.en.md)
 
-> **Démonstration — données fictives.** Aucun lot proposé à la vente, aucune collecte de données personnelles.
+> **Démonstration · données fictives.** Aucun lot proposé à la vente, aucune collecte de données personnelles.
+
+**Démo en ligne : [lotimap.drekky.fr](https://lotimap.drekky.fr)**
 
 Du plan DAO à la carte web : **lotimap** transforme un DXF de géomètre en GeoJSON contrôlé, puis présente les lots dans une interface adaptée au téléphone et à l'ordinateur. Ce projet de portfolio met l'accent sur la qualité de conversion, la lisibilité du code et l'explication des limites, dans un budget cible d'environ 25 heures.
 
@@ -150,7 +152,7 @@ GitHub Actions exécute ces contrôles sur les push et pull requests, puis const
 - Les risques sont communaux, pas localisés sur les lots. Le code PLU ne garantit pas la constructibilité.
 - DVF fournit un indicateur agrégé, avec les limites des exports communaux et de la déduplication. Les prix commerciaux de la démo restent fictifs.
 - L'administration est volontairement minimale ; les tentatives de connexion sont limitées en mémoire d'une seule instance.
-- Le domaine et les paramètres du VPS restent à renseigner avant le déploiement public.
+- La démo publique tourne sur une seule instance, administration désactivée : prix et statuts fictifs y restent fixes.
 
 ## Sources, dates et licences
 

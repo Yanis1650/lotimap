@@ -33,7 +33,7 @@ Par défaut, l'application lit `../data/demo/geojson/clos_du_verger.geojson`, ch
 - La liste des lots est repliée au départ et peut être ouverte ou refermée au clavier comme au toucher. Choisir un lot la referme et ramène la carte avec sa fiche, sous le bandeau fixe ; le retour respecte la préférence de réduction des animations.
 - Sous la carte, le contexte territorial présente les sources datées, les familles de risques à l'échelle communale et la médiane DVF agrégée. La disposition passe d'une colonne sur téléphone à trois sur ordinateur.
 - Le bouton « Je suis intéressé » affiche un message local ; aucune donnée n'est envoyée ni collectée.
-- Le bandeau « Démonstration — données fictives » est permanent. Les pages portent une balise `noindex` et un en-tête `X-Robots-Tag` ; `robots.txt` interdit l'exploration.
+- Le bandeau « Démonstration · données fictives » est permanent. Les pages portent une balise `noindex` et un en-tête `X-Robots-Tag` ; `robots.txt` interdit l'exploration.
 
 ## Enrichissement
 
