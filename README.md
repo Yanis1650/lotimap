@@ -17,7 +17,7 @@ Un plan de géomètre contient des calques, des polylignes et des textes ; il n'
 Le scénario est **« Le Clos du Verger »**, un lotissement entièrement fictif de 20 lots près d'Avranches (Manche). L'emprise provisoire est centrée sur 48.684° N, 1.357° O ; elle ne représente aucune opération réelle.
 
 - **Conversion** : Lambert 93 ou CC49, surface dans la projection source, GeoJSON WGS84 et rapport de validation.
-- **Carte publique** : plan paysager 2D ou orthophoto IGN, quatre statuts, filtres budget/surface, liste accessible et fiche par lot.
+- **Carte publique** : plan paysager 2D ou orthophoto IGN, quatre statuts, filtres budget/surface, liste repliable avec retour à la carte et fiche par lot.
 - **Vue 3D légère** : volumes fictifs des maisons et plantations, rotation, zoom et recentrage dans la même carte.
 - **Perspectives** : deux illustrations d'ambiance réalistes, explicitement fictives et générées par IA.
 - **Administration** : modification des prix et statuts SQLite avec un mot de passe fourni par l'environnement.

@@ -17,7 +17,7 @@ A surveyor's drawing contains layers, polylines and text, rather than ready-to-u
 **“Le Clos du Verger”** is a fictional subdivision with 20 lots near Avranches, France. Its provisional footprint is centred at 48.684° N, 1.357° W and represents no real development.
 
 - **Conversion:** Lambert 93 or CC49, areas in the source CRS, WGS84 GeoJSON and a validation report.
-- **Public map:** a 2D landscaped plan or IGN orthophotos, four statuses, budget/area filters, an accessible list and lot details.
+- **Public map:** a 2D landscaped plan or IGN orthophotos, four statuses, budget/area filters, a collapsible list that returns to the map on selection, and lot details.
 - **Lightweight 3D view:** fictional house and planting volumes, rotation, zoom and recentering within the same map.
 - **Perspectives:** two realistic atmosphere illustrations, explicitly fictional and AI-generated.
 - **Administration:** update fictional prices and statuses in SQLite using an environment-provided password.

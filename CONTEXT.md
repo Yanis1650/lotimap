@@ -1,6 +1,6 @@
 # Contexte du projet — lotimap
 
-> Document de reprise pour les prochaines conversations. État au 5 octobre 2026 : phases 0 à 8 validées. Vue 3D légère ajoutée ; phase 9 réalisée, en attente de validation. Le déploiement réel sur le VPS reste à faire.
+> Document de reprise pour les prochaines conversations. État au 5 octobre 2026 : phases 0 à 8 validées. Vue 3D légère ajoutée, liste repliable et retour automatique à la carte réalisés. Post LinkedIn préparé pour validation. Le déploiement réel sur le VPS reste à faire.
 
 ## Intention
 
@@ -105,6 +105,10 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 - La phase 9 suit le choix explicite de l'utilisateur : **vue 3D légère dans la carte**, avec les couches `fill-extrusion` natives de MapLibre. Murs, toitures simplifiées, haies, troncs et couronnes ont des hauteurs fictives constantes. Le terrain reste plat ; aucune altitude réelle ou règle de construction n'est calculée. Aucun modèle externe ni moteur 3D supplémentaire n'est ajouté. `docs/3d.md` documente les choix et les références officielles.
 - `Plan 2D` reste le mode initial ; `Vue 3D` incline la caméra de 50°, avec rotation de 30° par bouton, zoom et recentrage. Les trois modes partagent filtres, sélection et données ; l'entrée ou la sortie de la 3D rétablit un cadrage d'ensemble. Les éléments illustratifs portent l'identifiant stable de leur lot pour sélectionner correctement une maison ou un arbre en volume. Les contours et l'empreinte du GeoJSON restent inchangés.
 - Vérifications de la phase 9 : lint, types, compilation, cinq tests web et limite de 200 lignes réussis. Le validateur natif de style MapLibre est déclaré en dépendance de développement, avec la version déjà verrouillée, et contrôle les couches des trois modes. Docker est reconstruit et sain sur le port 3333, volume existant préservé. Vues 1 280 × 900 et 390 × 844 sans débordement, rotation/zoom/recentrage, filtres 70 000 € / 900 m², conservation de la fiche entre les modes et clic sur une maison vérifiés. Les commandes tactiles mesurent au moins 44 × 44 px. Captures dans `docs/images/lotimap-3d-*.png`.
+- Le commit `8a170f8` de la phase 9 a été publié ; [ses trois tâches CI](https://github.com/Yanis1650/lotimap/actions/runs/37355619960) ont réussi.
+- Le 5 octobre, l'utilisateur demande une liste repliable et un retour direct à la carte lorsqu'un lot est choisi. La liste est fermée initialement sur téléphone et ordinateur ; son bouton « Afficher / Replier » expose `aria-expanded` et `aria-controls`, avec une cible de 44 px. La sélection referme la liste, attend la mise à jour du DOM, déplace le focus vers la région carte et la ramène sous le bandeau fixe. Le défilement respecte la préférence de réduction des animations. Les clics effectués directement sur la carte conservent leur comportement.
+- Vérifications de cet ajustement : lint, types, compilation, cinq tests web et limite de 200 lignes réussis ; conteneur reconstruit et sain, base existante préservée. Ouverture/repli et sélection au clavier, clic sur un lot filtré, dernier des 20 lots, filtres combinés et liste sans résultat contrôlés. Aucun débordement horizontal en 320, 390 et 1 280 px ; retour à environ 58 px du haut, sous le bandeau de 42 px. Captures dans `docs/images/lotimap-list-*.png`.
+- `docs/linkedin.md` contient le post français préparé et les deux visuels proposés. Le texte privilégie la conversion DXF, la qualité documentée et le parcours mobile ; il indique la fiction et les perspectives IA. Il renvoie au dépôt public, sans annoncer une démonstration VPS encore absente. Aucune publication LinkedIn n'a été effectuée.
 
 ## Phases et règle de travail
 
@@ -118,6 +122,7 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 7. Identité Drekky Studio et publication GitHub — **validée**.
 8. Plan paysager 2D et perspectives d'ambiance — **validée**.
 9. Vue 3D légère dans la carte — **réalisée le 5 octobre 2026, en attente de validation**.
+10. Liste repliable, retour à la carte et post LinkedIn — **réalisée le 5 octobre 2026, en attente de validation**.
 
 Arrêter le travail à la fin de chaque phase, résumer ce qui est fait et ce qui reste, proposer un message de commit et attendre la validation avant la suivante. Présenter les options avant de trancher un choix technique discutable.
 
@@ -125,4 +130,4 @@ Arrêter le travail à la fin de chaque phase, résumer ce qui est fait et ce qu
 
 1. **Déploiement** : domaine, réseau Traefik et méthode TLS à renseigner avant déploiement VPS, sans valeurs privées dans Git.
 2. **Emprise définitive** : adapter le plan et recalculer l'enrichissement quand la vraie zone sera choisie.
-3. **Communication** : préparer le post LinkedIn après validation de cette étape.
+3. **Communication** : valider le texte et les visuels dans `docs/linkedin.md`, puis publier le post LinkedIn.

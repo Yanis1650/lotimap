@@ -30,6 +30,7 @@ Par défaut, l'application lit `../data/demo/geojson/clos_du_verger.geojson`, ch
 - `Vue 3D` met en volume maisons et plantations avec des hauteurs fictives, sur terrain plat. Rotation, zoom et recentrage sont accessibles au toucher ou au clavier. Les filtres et fiches fonctionnent dans les trois modes ; [la méthode et les limites](../docs/3d.md) sont documentées.
 - Deux perspectives d'ambiance fictives générées par IA sont présentées sous la carte, sur une colonne sur téléphone et deux sur ordinateur. [La méthode et les prompts](../docs/visuals.md) sont documentés.
 - La fiche indique le numéro, la surface, le prix, le prix au m² et le zonage PLU issu du GPU, avec sa description lorsqu'une seule zone est retenue.
+- La liste des lots est repliée au départ et peut être ouverte ou refermée au clavier comme au toucher. Choisir un lot la referme et ramène la carte avec sa fiche, sous le bandeau fixe ; le retour respecte la préférence de réduction des animations.
 - Sous la carte, le contexte territorial présente les sources datées, les familles de risques à l'échelle communale et la médiane DVF agrégée. La disposition passe d'une colonne sur téléphone à trois sur ordinateur.
 - Le bouton « Je suis intéressé » affiche un message local ; aucune donnée n'est envoyée ni collectée.
 - Le bandeau « Démonstration — données fictives » est permanent. Les pages portent une balise `noindex` et un en-tête `X-Robots-Tag` ; `robots.txt` interdit l'exploration.

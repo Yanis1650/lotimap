@@ -26,8 +26,12 @@
 .legend i[data-status="reserved"] { background: #e99166; }
 .legend i[data-status="sold"] { background: #a0aab0; }
 .map-section { order: 3; }
-.lot-list { order: 4; padding: 20px 12px 12px; }
-.lot-list .section-heading { padding: 0 8px; }
+.lot-list { order: 4; padding: 12px; }
+.lot-list .section-heading { align-items: center; margin-bottom: 0; padding-left: 8px; }
+.lot-list-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px; border: 0; border-radius: var(--radius); background: var(--paper-dim); color: var(--accent); font-size: 13px; }
+.lot-list-toggle:hover { background: var(--line); }
+.lot-list-count { font-family: var(--font-mono); }
+.lot-list-content { margin-top: 12px; }
 .lot-list-items { scrollbar-color: var(--line) transparent; }
 .lot-row {
   display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 8px;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import type { PlanCollection, LotFeature } from '#shared/lot'
 import { isLotFeature } from '#shared/lot'
 import type { MapMode } from '~/utils/landscape-layers'
@@ -9,6 +9,17 @@ const budgetMax = ref(0)
 const surfaceMin = ref(0)
 const selectedId = ref<string | null>(null)
 const mapMode = ref<MapMode>('landscape')
+const mapSection = ref<HTMLElement | null>(null)
+
+async function selectFromList(id: string) {
+  selectedId.value = id
+  await nextTick()
+  mapSection.value?.focus({ preventScroll: true })
+  mapSection.value?.scrollIntoView({
+    block: 'start',
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+  })
+}
 
 const allLots = computed(() => data.value?.features.filter(isLotFeature) ?? [])
 const filteredLots = computed(() => allLots.value.filter((lot) => {
@@ -58,9 +69,9 @@ watch(filteredLots, (lots) => {
           <span><i data-status="reserved" />Réservé</span>
           <span><i data-status="sold" />Vendu</span>
         </div>
-        <LotList :lots="filteredLots" :selected-id="selectedId" @select="selectedId = $event" />
+        <LotList :lots="filteredLots" :selected-id="selectedId" @select="selectFromList" />
       </aside>
-      <section class="map-section" aria-label="Carte interactive des lots">
+      <section ref="mapSection" class="map-section" tabindex="-1" aria-label="Carte interactive des lots">
         <div class="map-toolbar">
           <div class="map-mode-switch" role="group" aria-label="Fond du plan">
             <button type="button" :aria-pressed="mapMode === 'landscape'" @click="mapMode = 'landscape'">Plan 2D</button>
