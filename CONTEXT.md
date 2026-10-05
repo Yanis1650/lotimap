@@ -1,6 +1,6 @@
 # Contexte du projet — lotimap
 
-> Document de reprise pour les prochaines conversations. État au 5 octobre 2026 : phases 0 à 8 validées. Vue 3D légère ajoutée, liste repliable et retour automatique à la carte réalisés. Post LinkedIn préparé pour validation. Démo publiée le même jour sur https://lotimap.drekky.fr, derrière le Traefik du VPS, administration désactivée.
+> Document de reprise pour les prochaines conversations. État au 5 octobre 2026 : phases 0 à 8 validées. Vue 3D légère ajoutée, liste repliable et retour automatique à la carte réalisés. Démo publiée le même jour sur https://lotimap.drekky.fr, derrière le Traefik du VPS, administration désactivée. Post LinkedIn actualisé avec ce lien, en attente de validation.
 
 ## Intention
 
@@ -109,7 +109,8 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 - Le 5 octobre, l'utilisateur demande une liste repliable et un retour direct à la carte lorsqu'un lot est choisi. La liste est fermée initialement sur téléphone et ordinateur ; son bouton « Afficher / Replier » expose `aria-expanded` et `aria-controls`, avec une cible de 44 px. La sélection referme la liste, attend la mise à jour du DOM, déplace le focus vers la région carte et la ramène sous le bandeau fixe. Le défilement respecte la préférence de réduction des animations. Les clics effectués directement sur la carte conservent leur comportement.
 - Vérifications de cet ajustement : lint, types, compilation, cinq tests web et limite de 200 lignes réussis ; conteneur reconstruit et sain, base existante préservée. Ouverture/repli et sélection au clavier, clic sur un lot filtré, dernier des 20 lots, filtres combinés et liste sans résultat contrôlés. Aucun débordement horizontal en 320, 390 et 1 280 px ; retour à environ 58 px du haut, sous le bandeau de 42 px. Captures dans `docs/images/lotimap-list-*.png`.
 - Le bandeau affiche « Démonstration · données fictives » depuis le 5 octobre 2026 : le tiret cadratin a été retiré à la demande de l'utilisateur.
-- `docs/linkedin.md` contient le post français préparé et les deux visuels proposés. Le texte privilégie la conversion DXF, la qualité documentée et le parcours mobile ; il indique la fiction et les perspectives IA. Il renvoie au dépôt public, sans annoncer une démonstration VPS encore absente. Aucune publication LinkedIn n'a été effectuée.
+- `docs/linkedin.md` contient le post français préparé et les deux visuels proposés. Le texte privilégie la conversion DXF, la qualité documentée et le parcours mobile ; il indique la fiction et les perspectives IA. Après annonce de la mise en ligne par l'utilisateur, les liens HTTPS de la démo et du dépôt sont ajoutés. Aucune publication LinkedIn n'a été effectuée.
+- L'utilisateur annonce la mise en ligne sur **https://lotimap.drekky.fr** le 5 octobre 2026. Vérification : accueil, `/admin` et `/robots.txt` répondent en HTTPS avec un statut 200 ; les deux pages portent la balise `noindex` et l'en-tête `X-Robots-Tag: noindex, nofollow, noarchive`, et les robots sont bloqués par `Disallow: /`. Le bandeau de fiction est visible. Sur téléphone, la liste repliable et le retour à la carte avec la fiche du lot 13 fonctionnent sur le site public, sans débordement horizontal ; capture dans `docs/images/lotimap-live-mobile.png`. Cette vérification n'a pas modifié le serveur déployé.
 
 ## Phases et règle de travail
 
