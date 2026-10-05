@@ -2,7 +2,7 @@
 
 ## Périmètre
 
-Ajout du 5 octobre 2026, après validation : un plan 2D paysager interactif et deux perspectives d'ambiance, adaptés au téléphone et à l'ordinateur. La palette et les composants suivent la charte Drekky Studio. La 3D interactive reste hors de cette étape.
+Ajout du 5 octobre 2026, après validation : un plan 2D paysager interactif et deux perspectives d'ambiance, adaptés au téléphone et à l'ordinateur. La palette et les composants suivent la charte Drekky Studio. La [vue 3D légère](3d.md) est ajoutée lors de la phase suivante.
 
 ## Plan 2D
 

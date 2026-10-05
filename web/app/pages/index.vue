@@ -63,16 +63,22 @@ watch(filteredLots, (lots) => {
       <section class="map-section" aria-label="Carte interactive des lots">
         <div class="map-toolbar">
           <div class="map-mode-switch" role="group" aria-label="Fond du plan">
-            <button type="button" :aria-pressed="mapMode === 'landscape'" @click="mapMode = 'landscape'">Plan paysager</button>
+            <button type="button" :aria-pressed="mapMode === 'landscape'" @click="mapMode = 'landscape'">Plan 2D</button>
+            <button type="button" :aria-pressed="mapMode === 'volume'" @click="mapMode = 'volume'">Vue 3D</button>
             <button type="button" :aria-pressed="mapMode === 'orthophoto'" @click="mapMode = 'orthophoto'">Orthophoto IGN</button>
           </div>
-          <span>{{ mapMode === 'landscape' ? 'Vue 2D illustrative' : 'Emprise provisoire' }}</span>
+          <span>{{ mapMode === 'orthophoto' ? 'Emprise provisoire' : mapMode === 'volume' ? 'Volumes fictifs' : 'Vue 2D illustrative' }}</span>
         </div>
         <ClientOnly>
           <LotMap :collection="visiblePlan" :selected-id="selectedId" :mode="mapMode" @select="selectedId = $event" />
           <template #fallback><div class="map-loading">Chargement de la carte…</div></template>
         </ClientOnly>
-        <div class="map-footnote">{{ mapMode === 'landscape' ? 'Maisons et plantations illustratives · Contours issus du plan fictif' : 'Localisation et emprise fictives' }} · Cliquez sur un lot pour voir sa fiche</div>
+        <div class="map-footnote">
+          <template v-if="mapMode === 'orthophoto'">Localisation et emprise fictives</template>
+          <template v-else-if="mapMode === 'volume'">Volumes et hauteurs fictifs · Terrain plat</template>
+          <template v-else>Maisons et plantations illustratives · Contours issus du plan fictif</template>
+          · Cliquez sur un lot pour voir sa fiche
+        </div>
         <LotDetails v-if="selectedLot" :lot="selectedLot" @close="selectedId = null" />
       </section>
     </div>

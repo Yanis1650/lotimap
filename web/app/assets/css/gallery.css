@@ -14,7 +14,7 @@
 .gallery-figure h3 { margin: 16px 0 6px; font-size: 22px; }
 .gallery-figure figcaption p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
 .map-mode-switch { display: inline-flex; padding: 3px; background: var(--paper-dim); border-radius: var(--radius); }
-.map-mode-switch button { min-height: 38px; padding: 8px 12px; border: 0; background: transparent; color: var(--muted); font-size: 12px; }
+.map-mode-switch button { min-height: 44px; padding: 8px 12px; border: 0; background: transparent; color: var(--muted); font-size: 12px; }
 .map-mode-switch button[aria-pressed="true"] { background: var(--accent); color: var(--paper); border-radius: var(--radius); }
 .map-toolbar { align-items: center; flex-wrap: wrap; }
 .map-toolbar > span { font-size: 10px; }

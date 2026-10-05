@@ -8,6 +8,12 @@
 .map-footnote { padding: 12px 14px; color: var(--muted-2); font-size: 12px; line-height: 1.5; }
 .maplibregl-ctrl-group { border-radius: var(--radius) !important; overflow: hidden; box-shadow: var(--shadow-raised) !important; }
 .maplibregl-ctrl-attrib { font-size: 10px !important; }
+.maplibregl-ctrl-group button { width: 44px; height: 44px; }
+.map-view-controls { position: absolute; z-index: 2; left: 14px; bottom: 14px; display: flex; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-raised); overflow: hidden; }
+.map-view-controls button { min-width: 44px; min-height: 44px; padding: 8px 12px; border: 0; background: transparent; color: var(--accent); font-size: 12px; }
+.map-view-controls button + button { border-left: 1px solid var(--line); }
+.map-view-controls button[aria-label] { font-size: 22px; line-height: 1; }
+.map-view-controls button:hover { background: var(--paper-dim); }
 .lot-details {
   position: absolute; z-index: 5; left: 9px; bottom: 58px;
   width: calc(100% - 18px); max-height: 75%; overflow: auto; padding: 22px;

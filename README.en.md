@@ -18,6 +18,7 @@ A surveyor's drawing contains layers, polylines and text, rather than ready-to-u
 
 - **Conversion:** Lambert 93 or CC49, areas in the source CRS, WGS84 GeoJSON and a validation report.
 - **Public map:** a 2D landscaped plan or IGN orthophotos, four statuses, budget/area filters, an accessible list and lot details.
+- **Lightweight 3D view:** fictional house and planting volumes, rotation, zoom and recentering within the same map.
 - **Perspectives:** two realistic atmosphere illustrations, explicitly fictional and AI-generated.
 - **Administration:** update fictional prices and statuses in SQLite using an environment-provided password.
 - **Enrichment:** GPU zoning per lot, municipal risk families and a DVF median, computed in advance.
@@ -112,6 +113,8 @@ open data ──▶ enrichment/ ◀───────────────
 
 **Landscaped plan and images.** An illustrative layer places houses and plants inside the fictional lots without changing their boundaries or areas. The perspectives do not represent the plan's exact layout. [The method, limitations and prompts](docs/visuals.md) are documented in French.
 
+**Lightweight 3D.** Native MapLibre layers extrude the illustrative geometry, with fictional heights over flat ground. The browser keeps the same map and data across all three modes. [Decisions, controls and limitations](docs/3d.md) are documented in French.
+
 ## Checks and CI
 
 From the repository root:
@@ -133,6 +136,8 @@ npm test
 The 18 Python tests cover conversion, damaged inputs, projections, mappings, aggregations and file length. The web integration test starts the compiled server with a temporary database and checks login, refused access, validation, editing, logout and stale enrichment. ESLint checks Vue, TypeScript and JavaScript.
 
 Three additional web tests check that landscaping stays inside the lots without mutating the plan, follows filters and skips unsupported shapes.
+
+A fifth web test validates the 2D/3D layers against the native MapLibre specification. Geometry checks also verify that every volume belongs to its identified lot.
 
 GitHub Actions runs these checks on pushes and pull requests, then builds and starts a test container. Its health check requests `/api/lots`, exercising the bundled data and SQLite. The container test checks persistence across restart, the HTTPS cookie, `noindex` and `robots.txt`. Enrichment tests use synthetic data without querying external services. All three jobs passed on the [first GitHub run, on 4 October 2026](https://github.com/Yanis1650/lotimap/actions/runs/37219417210).
 

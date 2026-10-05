@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onUnmounted, ref, watch } from 'vue'
+import { computed, onUnmounted, ref, watch } from 'vue'
 import type { FeatureCollection } from 'geojson'
 import * as maplibregl from 'maplibre-gl'
 import type { GeoJSONSource } from 'maplibre-gl'
@@ -8,24 +8,27 @@ import type { PlanCollection } from '#shared/lot'
 import { buildLandscape } from '~/utils/landscape'
 import { landscapeLayers, setMapMode } from '~/utils/landscape-layers'
 import type { MapMode } from '~/utils/landscape-layers'
+import { framePlan, rotateView } from '~/utils/map-camera'
+import { volumeLayers } from '~/utils/volume-layers'
 
 const props = defineProps<{ collection: PlanCollection; selectedId: string | null; mode: MapMode }>()
 const emit = defineEmits<{ select: [id: string] }>()
 const container = ref<HTMLElement | null>(null)
 const mapError = ref(false)
 let map: maplibregl.Map | undefined
+const selectableLayers = ['lots-fill', ...volumeLayers(true).map(layer => layer.id)]
+const mapLabel = computed(() => props.mode === 'orthophoto'
+  ? 'Plan des lots sur orthophoto IGN'
+  : props.mode === 'volume' ? 'Vue 3D illustrative des lots' : 'Plan paysager illustratif des lots')
 
 const ignTiles = 'https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&STYLE=normal&FORMAT=image/jpeg&TILEMATRIXSET=PM_0_19&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}'
 
-function fitPlan() {
-  if (!map) return
-  const bounds = new maplibregl.LngLatBounds()
-  for (const feature of props.collection.features) {
-    for (const ring of feature.geometry.coordinates) {
-      for (const position of ring) bounds.extend([position[0]!, position[1]!])
-    }
-  }
-  if (!bounds.isEmpty()) map.fitBounds(bounds, { padding: 48, maxZoom: 17, duration: 0 })
+function resetView(duration = 350) {
+  if (map) framePlan(map, props.collection, props.mode, duration)
+}
+
+function rotate(direction: -1 | 1) {
+  if (map) rotateView(map, direction)
 }
 
 watch(container, (element) => {
@@ -36,9 +39,16 @@ watch(container, (element) => {
       container: element,
       center: [-1.357, 48.684],
       zoom: 15,
+      maxPitch: 60,
+      locale: {
+        'NavigationControl.ZoomIn': 'Zoomer',
+        'NavigationControl.ZoomOut': 'Dézoomer',
+        'NavigationControl.ResetBearing': 'Orienter vers le nord',
+      },
       attributionControl: false,
       style: {
         version: 8,
+        light: { anchor: 'viewport', color: '#fff4df', intensity: 0.55, position: [1.15, 210, 30] },
         sources: {
           ign: {
             type: 'raster',
@@ -96,22 +106,27 @@ watch(container, (element) => {
         ],
       },
     })
-    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
+    map.addControl(new maplibregl.NavigationControl(), 'top-right')
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right')
     map.on('error', (event) => {
       if (event.error?.message?.includes('Worker failed')) mapError.value = true
     })
     map.once('style.load', () => {
-      fitPlan()
+      map!.getSource<GeoJSONSource>('plan')?.setData(props.collection as FeatureCollection)
+      map!.getSource<GeoJSONSource>('landscape')?.setData(buildLandscape(props.collection))
       setMapMode(map!, props.mode)
+      resetView(0)
+      map!.setFilter('selected-outline', ['==', ['get', 'lot_id'], props.selectedId ?? ''])
     })
     map.on('click', (event) => {
-      const feature = map?.queryRenderedFeatures(event.point, { layers: ['lots-fill'] })[0]
+      const feature = map?.queryRenderedFeatures(event.point, { layers: selectableLayers })[0]
       const id = feature?.properties?.lot_id
       if (typeof id === 'string') emit('select', id)
     })
-    map.on('mouseenter', 'lots-fill', () => { map!.getCanvas().style.cursor = 'pointer' })
-    map.on('mouseleave', 'lots-fill', () => { map!.getCanvas().style.cursor = '' })
+    map.on('mousemove', (event) => {
+      const feature = map?.queryRenderedFeatures(event.point, { layers: selectableLayers })[0]
+      map!.getCanvas().style.cursor = feature ? 'pointer' : ''
+    })
   } catch {
     mapError.value = true
   }
@@ -121,7 +136,11 @@ watch(() => props.collection, (collection) => {
   map?.getSource<GeoJSONSource>('plan')?.setData(collection as FeatureCollection)
   map?.getSource<GeoJSONSource>('landscape')?.setData(buildLandscape(collection))
 })
-watch(() => props.mode, mode => { if (map) setMapMode(map, mode) })
+watch(() => props.mode, (mode, previous) => {
+  if (!map) return
+  setMapMode(map, mode)
+  if (mode === 'volume' || previous === 'volume') resetView()
+})
 watch(() => props.selectedId, (id) => {
   if (map?.getLayer('selected-outline')) map.setFilter('selected-outline', ['==', ['get', 'lot_id'], id ?? ''])
 })
@@ -130,7 +149,8 @@ onUnmounted(() => map?.remove())
 
 <template>
   <div class="map-wrap">
-    <div ref="container" class="map-canvas" :aria-label="mode === 'landscape' ? 'Plan paysager illustratif des lots' : 'Plan des lots sur orthophoto IGN'" />
+    <div ref="container" class="map-canvas" :aria-label="mapLabel" />
+    <MapViewControls v-if="!mapError" :volume="mode === 'volume'" @rotate="rotate" @reset="resetView()" />
     <p v-if="mapError" class="map-error" role="alert">La carte ne peut pas s'afficher sur cet appareil. La liste des lots reste disponible.</p>
   </div>
 </template>

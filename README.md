@@ -18,6 +18,7 @@ Le scénario est **« Le Clos du Verger »**, un lotissement entièrement fictif
 
 - **Conversion** : Lambert 93 ou CC49, surface dans la projection source, GeoJSON WGS84 et rapport de validation.
 - **Carte publique** : plan paysager 2D ou orthophoto IGN, quatre statuts, filtres budget/surface, liste accessible et fiche par lot.
+- **Vue 3D légère** : volumes fictifs des maisons et plantations, rotation, zoom et recentrage dans la même carte.
 - **Perspectives** : deux illustrations d'ambiance réalistes, explicitement fictives et générées par IA.
 - **Administration** : modification des prix et statuts SQLite avec un mot de passe fourni par l'environnement.
 - **Enrichissement** : zonage GPU par lot, familles de risques communales et médiane DVF, calculés à l'avance.
@@ -112,6 +113,8 @@ sources ouvertes ──▶ enrichment/ ◀────────────�
 
 **Plan paysager et images.** Une couche illustrative place maisons et plantations dans les lots fictifs, sans modifier leurs contours ni leurs surfaces. Les perspectives ne représentent pas l'implantation exacte du plan. [La méthode, les limites et les prompts](docs/visuals.md) sont documentés.
 
+**3D légère.** Les couches natives MapLibre mettent en volume les illustrations du plan, avec des hauteurs fictives sur terrain plat. Le navigateur conserve la même carte et les mêmes données dans les trois modes. [Les choix, commandes et limites](docs/3d.md) sont documentés.
+
 ## Contrôles et CI
 
 Depuis la racine :
@@ -133,6 +136,8 @@ npm test
 Les 18 tests Python couvrent la conversion, les fichiers défectueux, les projections, le mapping, les agrégations et la limite de taille. Le test d'intégration web démarre le serveur compilé avec une base temporaire : connexion, accès refusés, validation, édition, déconnexion et invalidation de l'enrichissement. ESLint contrôle Vue, TypeScript et JavaScript.
 
 Trois tests web supplémentaires vérifient que le paysage reste dans les lots sans modifier le plan, suit les filtres et ignore les formes non prises en charge.
+
+Un cinquième test web valide les couches 2D/3D avec la spécification native de MapLibre. Les contrôles géométriques vérifient aussi que chaque volume appartient à son lot identifié.
 
 GitHub Actions exécute ces contrôles sur les push et pull requests, puis construit et démarre un conteneur de test. Sa vérification de santé appelle `/api/lots`, donc teste aussi les données embarquées et SQLite. Le test conteneur contrôle la persistance après redémarrage, le cookie HTTPS, `noindex` et `robots.txt`. Les tests d'enrichissement n'interrogent pas les services ouverts. Les trois tâches ont réussi lors du [premier passage GitHub, le 4 octobre 2026](https://github.com/Yanis1650/lotimap/actions/runs/37219417210).
 

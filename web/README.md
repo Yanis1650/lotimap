@@ -26,7 +26,8 @@ Par défaut, l'application lit `../data/demo/geojson/clos_du_verger.geojson`, ch
 ## Fonctionnement
 
 - `/api/lots` associe les polygones du GeoJSON aux prix et statuts SQLite.
-- Le navigateur affiche par défaut un plan paysager illustratif ; un bouton bascule vers l'orthophoto IGN par WMTS. Les lots colorés, les numéros et les filtres budget/surface fonctionnent dans les deux modes.
+- Le navigateur affiche par défaut un plan paysager illustratif ; un bouton bascule vers l'orthophoto IGN par WMTS. Les lots colorés, les numéros et les filtres budget/surface fonctionnent dans ces modes.
+- `Vue 3D` met en volume maisons et plantations avec des hauteurs fictives, sur terrain plat. Rotation, zoom et recentrage sont accessibles au toucher ou au clavier. Les filtres et fiches fonctionnent dans les trois modes ; [la méthode et les limites](../docs/3d.md) sont documentées.
 - Deux perspectives d'ambiance fictives générées par IA sont présentées sous la carte, sur une colonne sur téléphone et deux sur ordinateur. [La méthode et les prompts](../docs/visuals.md) sont documentés.
 - La fiche indique le numéro, la surface, le prix, le prix au m² et le zonage PLU issu du GPU, avec sa description lorsqu'une seule zone est retenue.
 - Sous la carte, le contexte territorial présente les sources datées, les familles de risques à l'échelle communale et la médiane DVF agrégée. La disposition passe d'une colonne sur téléphone à trois sur ordinateur.

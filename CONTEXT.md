@@ -1,6 +1,6 @@
 # Contexte du projet — lotimap
 
-> Document de reprise pour les prochaines conversations. État au 5 octobre 2026 : phases 0 à 7 validées. Plan paysager 2D et galerie de perspectives fictives ajoutés ; phase 8 réalisée, en attente de validation. Le déploiement réel sur le VPS reste à faire.
+> Document de reprise pour les prochaines conversations. État au 5 octobre 2026 : phases 0 à 8 validées. Vue 3D légère ajoutée ; phase 9 réalisée, en attente de validation. Le déploiement réel sur le VPS reste à faire.
 
 ## Intention
 
@@ -99,8 +99,12 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 - Le dépôt cible fourni et autorisé par l'utilisateur est **https://github.com/Yanis1650/lotimap**, public et initialement vide, branche par défaut `main`. Le remote SSH `origin` est configuré ; le commit initial `e73180c` a été publié le 4 octobre 2026, avec une adresse GitHub noreply. [Le premier passage CI](https://github.com/Yanis1650/lotimap/actions/runs/37219417210) a réussi pour Python, le web et le conteneur Docker.
 - Vérification de l'identité le **4 octobre 2026** : vues 390 × 844 et 1 280 × 900 sans débordement horizontal ; filtres combinés à 70 000 € / 900 m² donnant deux lots disponibles, fiche du lot 13 avec zonage Uh et bouton factice sans collecte. Le bandeau reste visible pendant le défilement ; l'admin non configurée affiche son état désactivé. Les captures sont dans `docs/images/`.
 - L'utilisateur a autorisé le **5 octobre 2026** une étape visuelle : plan paysager 2D et deux perspectives d'ambiance réalistes. Une couche MapLibre place maisons, terrasses, accès, haies et arbres dans les quadrilatères convexes du plan fictif, avec façade orientée vers la voirie. Aucun contour, numéro, prix ou surface source n'est modifié ; l'empreinte du GeoJSON reste identique et l'enrichissement reste applicable. La bascule vers l'orthophoto conserve filtres et sélection. Le paysage ignore les lots avec trous ou non convexes et ne vérifie aucune règle de construction.
-- Les deux perspectives rue/jardin ont été créées avec Imagegen, encodées en WebP 1 536 px et 768 px, avec chargement différé. Elles restent des illustrations d'ambiance sans correspondance avec un lot ou une implantation exacte ; la mention « Illustration fictive · IA » est visible sur chaque image. La provenance et les prompts sont dans `docs/visuals.md`. La 3D interactive reste une option future.
+- Les deux perspectives rue/jardin ont été créées avec Imagegen, encodées en WebP 1 536 px et 768 px, avec chargement différé. Elles restent des illustrations d'ambiance sans correspondance avec un lot ou une implantation exacte ; la mention « Illustration fictive · IA » est visible sur chaque image. La provenance et les prompts sont dans `docs/visuals.md`.
 - Vérifications de la phase 8 : lint, types, compilation et quatre tests web réussis ; limite de 200 lignes vérifiée par pytest. Docker reconstruit et aperçu sain sur le port 3333, volume existant conservé. Plan et galerie contrôlés en 1 280 × 900 et 390 × 844, sans débordement horizontal, avec changement de fond, filtres et ouverture d'une fiche depuis le plan mobile. Les captures sont dans `docs/images/lotimap-landscape-*.png` et `docs/images/lotimap-gallery-*.png`.
+- Le commit `24839a5` de la phase 8 a été publié sur GitHub ; [ses trois tâches CI](https://github.com/Yanis1650/lotimap/actions/runs/37352649183) ont réussi. La phase est validée par l'utilisateur.
+- La phase 9 suit le choix explicite de l'utilisateur : **vue 3D légère dans la carte**, avec les couches `fill-extrusion` natives de MapLibre. Murs, toitures simplifiées, haies, troncs et couronnes ont des hauteurs fictives constantes. Le terrain reste plat ; aucune altitude réelle ou règle de construction n'est calculée. Aucun modèle externe ni moteur 3D supplémentaire n'est ajouté. `docs/3d.md` documente les choix et les références officielles.
+- `Plan 2D` reste le mode initial ; `Vue 3D` incline la caméra de 50°, avec rotation de 30° par bouton, zoom et recentrage. Les trois modes partagent filtres, sélection et données ; l'entrée ou la sortie de la 3D rétablit un cadrage d'ensemble. Les éléments illustratifs portent l'identifiant stable de leur lot pour sélectionner correctement une maison ou un arbre en volume. Les contours et l'empreinte du GeoJSON restent inchangés.
+- Vérifications de la phase 9 : lint, types, compilation, cinq tests web et limite de 200 lignes réussis. Le validateur natif de style MapLibre est déclaré en dépendance de développement, avec la version déjà verrouillée, et contrôle les couches des trois modes. Docker est reconstruit et sain sur le port 3333, volume existant préservé. Vues 1 280 × 900 et 390 × 844 sans débordement, rotation/zoom/recentrage, filtres 70 000 € / 900 m², conservation de la fiche entre les modes et clic sur une maison vérifiés. Les commandes tactiles mesurent au moins 44 × 44 px. Captures dans `docs/images/lotimap-3d-*.png`.
 
 ## Phases et règle de travail
 
@@ -112,7 +116,8 @@ La pièce maîtresse est un convertisseur **DXF → GeoJSON générique**. La ca
 5. Enrichissement open data — **validée**.
 6. Docker, CI, README final en français et en anglais — **validée**.
 7. Identité Drekky Studio et publication GitHub — **validée**.
-8. Plan paysager 2D et perspectives d'ambiance — **réalisée le 5 octobre 2026, en attente de validation**.
+8. Plan paysager 2D et perspectives d'ambiance — **validée**.
+9. Vue 3D légère dans la carte — **réalisée le 5 octobre 2026, en attente de validation**.
 
 Arrêter le travail à la fin de chaque phase, résumer ce qui est fait et ce qui reste, proposer un message de commit et attendre la validation avant la suivante. Présenter les options avant de trancher un choix technique discutable.
 

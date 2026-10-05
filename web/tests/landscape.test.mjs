@@ -26,7 +26,9 @@ test('illustrative buildings and plants stay inside the synthetic lots', () => {
     const geometry = feature.geometry
     const points = geometry.type === 'Point' ? [geometry.coordinates]
       : geometry.type === 'Polygon' ? geometry.coordinates.flat() : geometry.coordinates
-    assert.ok(lots.some(lot => points.every(point => inside(point, lot.geometry.coordinates[0]))))
+    const lot = lots.find(lot => lot.id === feature.properties.lot_id)
+    assert.ok(lot, 'Each illustrated element belongs to an existing lot ID')
+    assert.ok(points.every(point => inside(point, lot.geometry.coordinates[0])))
   }
   assert.equal(JSON.stringify(plan), before)
 })
